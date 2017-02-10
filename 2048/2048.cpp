@@ -10,7 +10,6 @@
 #include <cmath>
 
 using namespace std;
-
 typedef vector<vector<int>> matrix;
 
 int NumLength(int x){
@@ -50,18 +49,6 @@ void default(matrix& grid) {
 		grid.push_back(row);
 	}
 	grid[3][3] = 2;
-}
-
-void populate(ifstream& infile, matrix& grid) {
-	int num;
-	for (int i = 0; i < 4; i++) {
-		vector<int> row;
-		for (int j = 0; j < 4; j++) {
-			infile >> num;
-			row.push_back(num);
-		}
-		grid.push_back(row);
-	}
 }
 
 void rightshift(matrix& grid) {
@@ -246,7 +233,15 @@ int main() {
 		default(grid);
 	}
 	else {
-		populate(infile, grid);
+		int num;
+		for (int i = 0; i < 4; i++) {
+			vector<int> row;
+			for (int j = 0; j < 4; j++) {
+				infile >> num;
+				row.push_back(num);
+			}
+			grid.push_back(row);
+		}
 	}
 	display_grid(grid);
 	srand(time(NULL));
