@@ -28,7 +28,6 @@ void spacer(int spaces) {
 }
 
 void display_grid(matrix grid) {
-	cout << endl;
 	int spaces;
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -38,18 +37,6 @@ void display_grid(matrix grid) {
 		}
 		cout << endl;
 	}
-	cout << endl;
-}
-
-void default(matrix& grid) {
-	for (int i = 0; i < 4; i++) {
-		vector<int> row;
-		for (int j = 0; j < 4; j++) {
-			row.push_back(0);
-		}
-		grid.push_back(row);
-	}
-	grid[3][3] = 2;
 }
 
 void populate(ifstream& infile, matrix& grid) {
@@ -241,25 +228,22 @@ int main() {
 	cout << "enter initial configuration file name:" << endl;
 	cin >> filename;
 	infile.open(filename.c_str());
-	if (!infile.is_open()) {
-		cout << "file not found, default start configuration:" << endl;
-		default(grid);
-	}
-	else {
-		populate(infile, grid);
-	}
+	populate(infile, grid);
 	display_grid(grid);
 	srand(time(NULL));
 	matrix grid2;
+	moves = true;
 	moves = moremoves(grid);
 	while (moves) {
+		cout << endl;
 		cin >> dir;
+		cout << endl;
 		grid2 = grid;
 		shift(grid, dir);
 		if (grid2 != grid) {
 			addtwo(grid);
-			display_grid(grid);
 		}
+		display_grid(grid);
 		moves = moremoves(grid);
 	}
 	cout << endl << endl << "game over" << endl;
